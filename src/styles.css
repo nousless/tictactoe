@@ -20,5 +20,5 @@ section {
     font-weight:100;
 }
 .cell:hover{
-    background-color: darkseagreen;
+    background-color: rgba(94, 101, 204, 0.5) ;
 }

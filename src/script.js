@@ -1,9 +1,3 @@
-const winningSets = 
-[
-    [0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8],[2,4,6]                    
-]
 
 const cells = document.querySelectorAll('.cell')
 
@@ -19,11 +13,7 @@ function handleclick(event){
     //place mark
     placeMark(cell);
     //check if placing player won
-    
-    if(checkWin()){
-        let message = isCircleTurn ? 'Player 2 WON!' : 'Player 1 WON';
-        console.log(message);
-    }
+    checkWin()
     //toggle to other player
     togglePlayer();
 }
@@ -41,31 +31,44 @@ function placeMark(cell){
     }
 }
 function getCellIndex(cell){
-    return cell.getAttribute("data-cell-index");
+    return parseInt(cell.getAttribute("data-cell-index"), 10);
 }
 
 function winMessage(){
-    
+    let message = isCircleTurn ? 'Player 2 WON!' : 'Player 1 WON';
+    alert(message);
 }
+
 function checkWin(){
-    let hasWon = false;
+    
     let checkFor = isCircleTurn ? 'o-filled': 'x-filled';
-    let currentSquare;
     //susirinkt fillintus square'us
     let filledSquares = [...cells].filter(cell => cell.classList.contains(checkFor));
     let filledIndexes = filledSquares.map(getCellIndex);
     
-    //get overlap
+    const winningSets = 
+    [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]                    
+    ]
+    
     winningSets.forEach(set =>{
-        set.forEach(square =>{
-            console.log(square)
-            filledIndexes.indexOf(square)
+        let counter = 0;
+        set.forEach(x=>{
+            if(filledIndexes.includes(x)){
+                counter ++
+            }
         })
+        if(counter === 3){
+            winMessage()
+            
+        }
     })
 
-   
-    //check every filledIndex against each win condition with .find()
-    //and if at least 3 are found, return true
-    
-    // //intersectint winning setus ir fillintus square'us
 }
