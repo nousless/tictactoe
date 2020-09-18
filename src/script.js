@@ -1,3 +1,14 @@
+const winningSets = 
+    [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]                    
+    ]
 
 const cells = document.querySelectorAll('.cell')
 
@@ -10,11 +21,11 @@ cells.forEach(cell =>{
 
 function handleclick(event){
     const cell = event.target;
-    //place mark
+
     placeMark(cell);
-    //check if placing player won
+
     checkWin()
-    //toggle to other player
+
     togglePlayer();
 }
 
@@ -42,33 +53,19 @@ function winMessage(){
 function checkWin(){
     
     let checkFor = isCircleTurn ? 'o-filled': 'x-filled';
-    //susirinkt fillintus square'us
     let filledSquares = [...cells].filter(cell => cell.classList.contains(checkFor));
     let filledIndexes = filledSquares.map(getCellIndex);
     
-    const winningSets = 
-    [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]                    
-    ]
-    
     winningSets.forEach(set =>{
         let counter = 0;
-        set.forEach(x=>{
+        set.forEach(x => {
             if(filledIndexes.includes(x)){
                 counter ++
             }
         })
         if(counter === 3){
             winMessage()
-            
         }
     })
-
+    
 }
